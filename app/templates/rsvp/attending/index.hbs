@@ -1,0 +1,16 @@
+{{#if rsvp.greeting}}
+  <h1>Hi, {{rsvp.greeting}}!</h1>
+{{else}}
+  <h1>Hi!</h1>
+{{/if}}
+<h3>Will you be attending?</h3>
+
+<button {{action 'no'}} class="pure-button pure-button-secondary full-width margin-bottom">
+  No, I Will Not Attend
+  <i class="fa fa-thumbs-down fa-fw"></i>
+</button>
+
+<button {{action 'yes'}} class="pure-button pure-button-primary full-width">
+  Yes, I Will Attend
+  <i class="fa fa-thumbs-up fa-fw"> </i>
+</button>

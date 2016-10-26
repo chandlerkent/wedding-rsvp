@@ -1,0 +1,100 @@
+<h1>Woo Hoo!</h1>
+<h3>
+  We can't wait to see you!
+  <br>
+  But first, we need a little more info...
+</h3>
+
+<hr>
+{{#each guests as |guest index|}}
+  <form class="pure-form pure-form-aligned">
+    <fieldset>
+      <div class="pure-control-group">
+        <label for="{{index}}-first-name">First Name</label>
+        {{input
+          type='text'
+          id=(concat index '-first-name')
+          placeholder='First Name'
+          value=guest.firstname}}
+      </div>
+
+      <div class="pure-control-group">
+        <label for="{{index}}-last-name">Last Name</label>
+        {{input
+          type='text'
+          id=(concat index '-last-name')
+          placeholder='Last Name'
+          value=guest.lastname}}
+      </div>
+
+      <div class="pure-control-group">
+        <label for="{{index}}-is-attending">Attending</label>
+        <select id="{{index}}-is-attending" onchange={{action (action isAttending guest) value='target.value'}}>
+          <option value="-1"></option>
+          <option value="0" selected={{eq guest.isattending false}}>Not Attending</option>
+          <option value="1" selected={{eq guest.isattending true}}>Attending</option>
+        </select>
+      </div>
+
+      {{#if guest.isattending}}
+        <div class="pure-control-group">
+          <label for="{{index}}-meal">Meal</label>
+          <select id="{{index}}-meal" onchange={{action (mut guest.food) value='target.value'}}>
+            <option value="-1"></option>
+            {{#each food as |choice|}}
+              <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      {{/if}}
+    </fieldset>
+  </form>
+  <hr>
+{{/each}}
+
+{{#if plusOne}}
+  <h3>Are you bringing a guest?</h3>
+  <form class="pure-form pure-form-aligned">
+    <fieldset>
+      <div class="pure-control-group">
+        <select id="plus-one-is-attending" onchange={{action (action isAttending plusOne) value='target.value'}}>
+          <option value="-1"></option>
+          <option value="0" selected={{eq plusOne.isattending false}}>No</option>
+          <option value="1" selected={{eq plusOne.isattending true}}>Yes</option>
+        </select>
+      </div>
+
+      {{#if plusOne.isattending}}
+        <div class="pure-control-group">
+          <label for="plus-one-first-name">First Name</label>
+          {{input
+            type='text'
+            id='plus-one-first-name'
+            placeholder='First Name'
+            value=plusOne.firstname}}
+        </div>
+
+        <div class="pure-control-group">
+          <label for="plus-one-last-name">Last Name</label>
+          {{input
+            type='text'
+            id='plus-one-last-name'
+            placeholder='Last Name'
+            value=plusOne.lastname}}
+        </div>
+
+        <div class="pure-control-group">
+          <label for="plusOne-meal">Meal</label>
+          <select id="plusOne-meal" onchange={{action (mut plusOne.food) value='target.value'}}>
+            <option value="-1"></option>
+            {{#each food as |choice|}}
+              <option value={{choice.id}} selected={{eq choice.id plusOne.food}}>{{choice.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      {{/if}}
+    </fieldset>
+  </form>
+{{/if}}
+
+<button {{action 'next'}} class="pure-button pure-button-primary full-width">Next <i class="fa fa-hand-o-right fa-fw"></i></button>

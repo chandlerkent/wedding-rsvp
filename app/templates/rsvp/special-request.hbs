@@ -1,0 +1,11 @@
+<h1>What Else Should We Know?</h1>
+
+<p>For example, do you have any dietary restrictions?</p>
+
+<form class="pure-form margin-bottom" {{action 'next' on='submit'}}>
+  {{textarea
+    value=rsvp.specialrequests
+    classNames='full-width'}}
+</form>
+
+<button {{action 'next'}} class="pure-button pure-button-primary full-width">Next <i class="fa fa-hand-o-right fa-fw"></i></button>

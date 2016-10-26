@@ -1,0 +1,49 @@
+<h1>Check It Twice <i class="fa fa-check-square-o fa-fw"></i></h1>
+<h3>Is the info below correct?</h3>
+
+<hr>
+<h4>Guests</h4>
+{{#each guests as |guest|}}
+  <div>
+    <span class="primary-color">
+      {{guest.firstname}} {{guest.lastname}}
+    </span>
+    <u>{{if guest.isattending 'is' 'is not'}} attending</u>{{unless guest.isattending '.'}}
+    {{#if guest.isattending}}
+      and will have the
+      <u>{{lookup-meal guest.food food}}</u>.
+    {{/if}}
+  </div>
+{{/each}}
+{{#if plusOne.isattending}}
+  <div>
+    <span class="primary-color">
+      {{plusOne.firstname}} {{plusOne.lastname}}
+    </span>
+    <u>{{if plusOne.isattending 'is' 'is not'}} attending</u>{{unless plusOne.isattending '.'}}
+    {{#if plusOne.isattending}}
+      and will have the
+      <u>{{lookup-meal plusOne.food food}}</u>.
+    {{/if}}
+  </div>
+{{/if}}
+
+<h4>Additional Information</h4>
+{{#if rsvp.specialrequests}}
+  <p class="preserve-linebreaks">{{rsvp.specialrequests}}</p>
+{{else}}
+  <p>None</p>
+{{/if}}
+
+<h4>Music</h4>
+{{#if rsvp.music}}
+  <p class="preserve-linebreaks">{{rsvp.music}}</p>
+{{else}}
+  <p><i class="fa fa-frown-o fa-fw"></i> You didn't write anything! That's fine, I guess.</p>
+{{/if}}
+
+<hr>
+
+<button {{action 'change'}} class="pure-button pure-button-secondary full-width margin-bottom">I Need To Make Changes</button>
+
+<button {{action 'submit'}} class="pure-button pure-button-primary full-width">Looks Good <i class="fa fa-thumbs-up fa-fw"></i></button>

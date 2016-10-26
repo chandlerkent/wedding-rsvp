@@ -1,0 +1,30 @@
+<h1>Nicole and Chandler</h1>
+<p>December 17th, 2016</p>
+
+<form class="pure-form pure-form-stacked">
+  <fieldset>
+    <div class="pure-control-group">
+      <label for="code"><b>RSVP Code</b><br>(located at the bottom of the details card)</label>
+      {{input
+        autofocus=true
+        id='code'
+        type='text'
+        value=code
+        disabled=isWorking
+        enter='goToRsvp'
+        classNames='full-width center large'}}
+    </div>
+    <div class="pure-controls">
+      <button type="submit" {{action 'goToRsvp'}} class="pure-button pure-button-primary full-width" disabled={{isWorking}}>Get Started <i class="fa fa-hand-o-right fa-fw"></i></button>
+    </div>
+
+    {{#if hasError}}
+      <p class="error">Whoops! Looks like that code is not valid. Please try again.</p>
+      <p>Your code is located at the bottom of the details card sent with the invitation.</p>
+    {{/if}}
+  </fieldset>
+  {{#if isWorking}}
+    Loading...
+  {{/if}}
+</form>
+

@@ -1,0 +1,11 @@
+<h1><i class="fa fa-music fa-fw"></i> Music <i class="fa fa-music fa-fw"></i></h1>
+<h3>Tell us what song will get you on the dance floor!</h3>
+
+<form class="pure-form margin-bottom" {{action 'next' on='submit'}}>
+  {{input
+    type='text'
+    value=rsvp.music
+    classNames='full-width center'}}
+</form>
+
+<button {{action 'next'}} class="pure-button pure-button-primary full-width">Next <i class="fa fa-hand-o-right fa-fw"></i></button>

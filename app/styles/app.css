@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body > div {
+  height: 100%;
+}
+
+.preserve-linebreaks {
+  white-space: pre;
+}
+
+/*
+  Colors
+    Primary: #800020
+    Secondary: #f7e7ce
+    Tertiary:  gold
+*/
+
+.primary-color {
+  color: #800020;
+}
+
+.center {
+  text-align: center;
+}
+
+.large {
+  font-size: 125%;
+}
+
+.pure-button-primary,
+.pure-button-selected,
+a.pure-button-primary,
+a.pure-button-selected {
+  background-color: #800020;
+  color: #fff;
+  font-size: 125%;
+  width: 100%;
+}
+
+.pure-button-secondary,
+a.pure-button-secondary {
+  background-color: #f7e7ce;
+  color: #800020;
+  width: 100%;
+}
+
+.container {
+  padding: .5em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.content {
+  min-width: 480px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-bottom {
+  margin-bottom: .5em;
+}
+
+textarea {
+  width: 98%;
+}
+
+@media only screen and (max-width : 480px) {
+  form input {
+    width: 100%;
+  }
+
+  form select {
+    width: 100%;
+  }
+}
+
+.error {
+  color: red;
+}

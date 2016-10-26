@@ -7,6 +7,17 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('rsvp', { path: '/rsvp/:code' }, function() {
+    this.route('attending', function() {
+      this.route('yes');
+      this.route('no');
+    });
+    this.route('guests');
+    this.route('music');
+    this.route('review');
+    this.route('done');
+    this.route('special-request');
+  });
 });
 
 export default Router;
