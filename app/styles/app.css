@@ -6,9 +6,9 @@ html, button, input, select, textarea,
     font-family: 'Josefin Sans', sans-serif;
 }
 
-html, body {
-  height: 100%;
-}
+/* html, body {
+  min-height: 100%;
+} */
 
 body > div {
   height: 100%;
@@ -64,7 +64,7 @@ a.pure-button-secondary {
 }
 
 .content {
-  min-width: 480px;
+  min-width: 320px;
 }
 
 .full-width {

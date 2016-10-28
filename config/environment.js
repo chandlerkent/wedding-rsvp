@@ -49,14 +49,16 @@ module.exports = function(environment) {
 
   ENV.fieldbook = setupFieldbookConfigurationForEnvironment(environment);
 
-  if (!ENV.fieldbook) {
-    throw new Error('Missing \'fieldbook\' key on ENV');
-  }
-  if (!ENV.fieldbook.bookId) {
-    throw new Error('Missing \'fieldbook.bookId\' key on ENV');
-  }
-  if (!ENV.fieldbook.authorization) {
-    throw new Error('Missing \'fieldbook.authorization\' key on ENV');
+  if (environment) {
+    if (!ENV.fieldbook) {
+      throw new Error('Missing \'fieldbook\' key on ENV');
+    }
+    if (!ENV.fieldbook.bookId) {
+      throw new Error('Missing \'fieldbook.bookId\' key on ENV');
+    }
+    if (!ENV.fieldbook.authorization) {
+      throw new Error('Missing \'fieldbook.authorization\' key on ENV');
+    }
   }
 
   return ENV;
@@ -67,6 +69,8 @@ function createFieldbookAuthorization(userName, key) {
 }
 
 function setupFieldbookConfigurationForEnvironment(environment) {
+  if (!environment) { return {}; }
+
   if (environment === 'test') {
     environment = 'development';
   }

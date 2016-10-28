@@ -30,7 +30,6 @@
       <div class="pure-control-group">
         <label for="{{index}}-is-attending">Attending</label>
         <select id="{{index}}-is-attending" onchange={{action (action isAttending guest) value='target.value'}}>
-          <option value="-1"></option>
           <option value="0" selected={{eq guest.isattending false}}>Not Attending</option>
           <option value="1" selected={{eq guest.isattending true}}>Attending</option>
         </select>
@@ -39,11 +38,29 @@
       {{#if guest.isattending}}
         <div class="pure-control-group">
           <label for="{{index}}-meal">Meal</label>
-          <select id="{{index}}-meal" onchange={{action (mut guest.food) value='target.value'}}>
+          <select id="{{index}}-meal" disabled={{not (can-choose-meal guest)}} onchange={{action (mut guest.food) value='target.value'}}>
             <option value="-1"></option>
-            {{#each food as |choice|}}
-              <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
-            {{/each}}
+            {{#if (eq guest.type 'child')}}
+              {{#each childMeals as |choice|}}
+                <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
+              {{/each}}
+            {{else}}
+              {{#if (eq guest.type 'baby')}}
+                {{#each babyMeals as |choice|}}
+                  <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
+                {{/each}}
+              {{else}}
+                {{#if (eq guest.type 'teenager')}}
+                  {{#each teenagerMeals as |choice|}}
+                    <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
+                  {{/each}}
+                {{else}}
+                  {{#each adultMeals as |choice|}}
+                    <option value={{choice.id}} selected={{eq choice.id guest.food}}>{{choice.name}}</option>
+                  {{/each}}
+                {{/if}}
+              {{/if}}
+            {{/if}}
           </select>
         </div>
       {{/if}}
@@ -96,5 +113,9 @@
     </fieldset>
   </form>
 {{/if}}
+
+{{#each errors as |error|}}
+  <p class="error">{{error}}</p>
+{{/each}}
 
 <button {{action 'next'}} class="pure-button pure-button-primary full-width">Next <i class="fa fa-hand-o-right fa-fw"></i></button>
