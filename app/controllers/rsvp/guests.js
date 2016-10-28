@@ -1,13 +1,9 @@
 import Ember from 'ember';
-
-const MEAL_TYPES = {
-  ADULT: 'adult',
-  CHILD: 'child',
-  BABY: 'baby'
-};
+import MEAL_TYPES from '../../constants/meal-types';
 
 export default Ember.Controller.extend({
   arrayHelpers: Ember.inject.service(),
+  guest: Ember.inject.service(),
   isBringingPlusOne: false,
   plusOne: null,
   errors: null,
@@ -33,12 +29,7 @@ export default Ember.Controller.extend({
     Ember.set(guest, 'isattending', (parseInt(isAttending, 10) === 1));
     if (!guest.isattending) { return; }
 
-    if (guest.type === MEAL_TYPES.CHILD) {
-      Ember.set(guest, 'food', this.get('childMeals')[0].id);
-    }
-    if (guest.type === MEAL_TYPES.BABY) {
-      Ember.set(guest, 'food', this.get('babyMeals')[0].id);
-    }
+    this.get('guest').setDefaultMeal(guest, this.get('food'));
   },
 
   bringPlusOne(bringingOne) {

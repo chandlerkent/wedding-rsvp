@@ -6,13 +6,6 @@ export default RSVPRoute.extend({
 
   actions: {
     yes() {
-      let model = this.modelFor('rsvp');
-      // Default all guests to attending
-      model.guests = this.get('arrayHelpers').map(model.guests, guest => {
-        guest.isattending = true;
-
-        return guest;
-      });
       this.transitionTo('rsvp.attending.yes');
     },
 
