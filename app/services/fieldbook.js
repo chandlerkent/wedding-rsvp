@@ -3,6 +3,7 @@ import AjaxService from 'ember-ajax/services/ajax';
 import ENV from 'wedding/config/environment';
 
 export default AjaxService.extend({
+  arrayHelpers: Ember.inject.service(),
   host: `https://api.fieldbook.com/v1/${ENV.fieldbook.bookId}`,
   headers: {
     'Accept': 'application/json',
@@ -34,8 +35,8 @@ export default AjaxService.extend({
     let food = this.request('/food');
 
     return Ember.RSVP.hash({ rsvp, guests, food }).then(result => {
-      let plusOnes = result.guests.filter(guest => !guest.isprimary);
-      result.guests = result.guests.filter(guest => guest.isprimary);
+      let plusOnes = this.get('arrayHelpers').filter(result.guests, guest => !guest.isprimary);
+      result.guests = this.get('arrayHelpers').filter(result.guests, guest => guest.isprimary);
 
       if (result.rsvp.plusone) {
         if (plusOnes.length > 0) {

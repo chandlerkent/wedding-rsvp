@@ -1,15 +1,17 @@
 import Ember from 'ember';
 
-export function lookupMeal(params) {
-  let meals = params[1];
+export default Ember.Helper.extend({
+  arrayHelpers: Ember.inject.service(),
 
-  let foundMeals = meals.filter(meal => {
-    return parseInt(meal.id, 10) === parseInt(params[0], 10);
-  });
+  compute(params) {
+    let meals = params[1];
 
-  if (foundMeals.length < 1) { return ''; }
+    let foundMeals = this.get('arrayHelpers').filter(meals, meal => {
+      return parseInt(meal.id, 10) === parseInt(params[0], 10);
+    });
 
-  return foundMeals[0].name;
-}
+    if (foundMeals.length < 1) { return ''; }
 
-export default Ember.Helper.helper(lookupMeal);
+    return foundMeals[0].name;
+  }
+});

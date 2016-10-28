@@ -1,11 +1,14 @@
+import Ember from 'ember';
 import RSVPRoute from '../rsvp-wizard-route';
 
 export default RSVPRoute.extend({
+  arrayHelpers: Ember.inject.service(),
+
   actions: {
     yes() {
       let model = this.modelFor('rsvp');
       // Default all guests to attending
-      model.guests = model.guests.map(guest => {
+      model.guests = this.get('arrayHelpers').map(model.guests, guest => {
         guest.isattending = true;
 
         return guest;
@@ -15,7 +18,7 @@ export default RSVPRoute.extend({
 
     no() {
       let model = this.modelFor('rsvp');
-      model.guests = model.guests.map(guest => {
+      model.guests = this.get('arrayHelpers').map(model.guests, guest => {
         guest.isattending = false;
         guest.food = [];
 

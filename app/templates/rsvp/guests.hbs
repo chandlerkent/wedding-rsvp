@@ -104,7 +104,7 @@
           <label for="plusOne-meal">Meal</label>
           <select id="plusOne-meal" onchange={{action (mut plusOne.food) value='target.value'}}>
             <option value="-1"></option>
-            {{#each food as |choice|}}
+            {{#each adultMeals as |choice|}}
               <option value={{choice.id}} selected={{eq choice.id plusOne.food}}>{{choice.name}}</option>
             {{/each}}
           </select>

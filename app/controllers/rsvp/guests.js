@@ -7,25 +7,26 @@ const MEAL_TYPES = {
 };
 
 export default Ember.Controller.extend({
+  arrayHelpers: Ember.inject.service(),
   isBringingPlusOne: false,
   plusOne: null,
   errors: null,
   food: null,
 
   babyMeals: Ember.computed('food', function () {
-    return this.get('food').filter(item => item.type === MEAL_TYPES.BABY);
+    return this.get('arrayHelpers').filter(this.get('food'), item => item.type === MEAL_TYPES.BABY);
   }),
 
   childMeals: Ember.computed('food', function () {
-    return this.get('food').filter(item => item.type === MEAL_TYPES.CHILD);
+    return this.get('arrayHelpers').filter(this.get('food'), item => item.type === MEAL_TYPES.CHILD);
   }),
 
   teenagerMeals: Ember.computed('food', function () {
-    return this.get('food').filter(item => item.type === MEAL_TYPES.CHILD || item.type === MEAL_TYPES.ADULT);
+    return this.get('arrayHelpers').filter(this.get('food'), item => item.type === MEAL_TYPES.CHILD || item.type === MEAL_TYPES.ADULT);
   }),
 
   adultMeals: Ember.computed('food', function () {
-    return this.get('food').filter(item => item.type === MEAL_TYPES.ADULT);
+    return this.get('arrayHelpers').filter(this.get('food'), item => item.type === MEAL_TYPES.ADULT);
   }),
 
   isAttending(guest, isAttending) {
@@ -50,14 +51,13 @@ export default Ember.Controller.extend({
   validate() {
     this.set('errors', null);
 
-    let guestsResult = this.get('guests')
-      .map(guest => this.validateGuest(guest));
+    let guestsResult = this.get('arrayHelpers')
+      .map(this.get('guests'), guest => this.validateGuest(guest));
 
     let plusOneResult = this.validateGuest(this.get('plusOne'));
 
-    let allResults = guestsResult
-      .concat(plusOneResult)
-      .filter(result => !!result);
+    let allResults = this.get('arrayHelpers')
+      .filter(guestsResult.concat(plusOneResult), result => !!result);
 
     this.set('errors', allResults.length > 0 ? allResults : null);
 
