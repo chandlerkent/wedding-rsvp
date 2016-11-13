@@ -4,6 +4,7 @@ import ENV from 'wedding/config/environment';
 
 export default AjaxService.extend({
   arrayHelpers: Ember.inject.service(),
+  sms: Ember.inject.service(),
   host: `https://api.fieldbook.com/v1/${ENV.fieldbook.bookId}`,
   headers: {
     'Accept': 'application/json',
@@ -99,8 +100,9 @@ export default AjaxService.extend({
     });
 
     let plusOnePromise = Ember.RSVP.resolve();
+    let plusOne = {};
     if (model.plusOne) {
-      let plusOne = {
+      plusOne = {
         firstname: model.plusOne.firstname,
         lastname: model.plusOne.lastname,
         isattending: convertBooleanToPicklist(model.plusOne.isattending),
@@ -135,6 +137,14 @@ export default AjaxService.extend({
       delete guest.id;
       return this.update(`/guests/${id}`, guest);
     }));
+
+    if (finalResponse) {
+      this.get('sms').rsvp({
+        rsvp,
+        guests,
+        plusOne
+      });
+    }
 
     return Ember.RSVP.hash({
       rsvp: rsvpPromise,
